@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en" theme="system">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+
+    <meta name="description" content="A website with a Kanji list."/>
+    <meta name="keywords" content="html, html5, css, css3, css-grid, js, json, vue, vuejs, kanji"/>
+    <meta name="robots" content="index"/>
+    <meta name="author" content="Modscleo4"/>
+
+    <title>漢字</title>
+
+    <!-- Bootstrap 4.5.2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Font Awesome 4.7.0 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
+    <link rel="stylesheet" href="css/main.css"/>
+    <link rel="stylesheet" href="css/themes/light.css"/>
+    <link rel="stylesheet" href="css/themes/dark.css"/>
+
+    <link rel="manifest" href="manifest.json"/>
+
+    <link rel="icon" href="favicon.png"/>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-78177802-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'UA-78177802-2');
+    </script>
+</head>
+
+<body>
+<script type="text/javascript" src="js/theme.js"></script>
+
+<div id="app">
+    <div class="modal fade" id="kanjiModal" tabindex="-1" role="dialog" aria-labelledby="kanjiModal"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title"></h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-info">
+                        <p class="kanji">{{ popupKanji.kanji }}</p>
+                        <p class="translation">{{ popupKanji.translation }}</p>
+
+                        <div v-if="popupKanji.furigana" class="furigana-div">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>訓読み</th>
+                                    <th>音読み</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr v-for="furigana in furiganas(popupKanji.furigana)">
+                                    <td>{{ furigana.kunyomi || '' }}</td>
+                                    <td>{{ furigana.onyomi || '' }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav id="settings" class="sidebar sidebar-right" :class="{'open': sidebarOpened}">
+        <ul>
+            <li>
+                <span class="description"><label for="theme_toggle">Theme</label></span>
+                <span class="config combo">
+                    <select id="theme_toggle" v-model="config.theme" class="custom-select custom-select-sm">
+                        <option value="system">System</option>
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                    </select>
+                </span>
+            </li>
+        </ul>
+    </nav>
+
+    <header>
+        <div></div>
+
+        <div class="search">
+            <input type="text" name="search" placeholder="いち、　ひと、　にち" v-model="search"/>
+        </div>
+
+        <div class="settings-button">
+            <button class="btn" type="button" data-toggle="modal" @click="sidebarOpened = !sidebarOpened">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <div v-if="sidebarOpened" class="sidebar-backdrop" @click="sidebarOpened = !sidebarOpened"></div>
+
+    <section id="main" :class="{'loaded': true}">
+        <div class="cards">
+            <div v-for="kanji in kanjisFiltered" class="card" :class="`l${kanji.length}`" @click="popupKanji = kanji" data-toggle="modal" data-target="#kanjiModal">
+                <span class="kanji">{{ kanji.kanji }}</span>
+                <span class="translation">{{ kanji.translation }}</span>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <hr/>
+        <p>© 2020 Modscleo4. Hosted on <a href="https://pages.github.com">GitHub Pages</a>.</p>
+    </footer>
+</div>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.0/vue.global.prod.js"></script>
+
+<script type="text/javascript" src="js/debug.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="sw.js"></script>
+</body>
+</html>

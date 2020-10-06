@@ -1,0 +1,100 @@
+{
+  "$id": "https://raw.githubusercontent.com/modscleo4/kanji-list/master/js/kanji-list.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "JSON schema for the Kanji List (kanji-list.json) file",
+  "type": "object",
+  "definitions": {
+    "kanji": {
+      "type": "object",
+      "default": {
+        "kanji": "",
+        "radical": "",
+        "grade": "",
+        "furigana": {
+          "kunyomi": [],
+          "onyomi": []
+        },
+        "translation": ""
+      },
+      "properties": {
+        "kanji": {
+          "type": "string",
+          "description": "Kanji symbol"
+        },
+        "radical": {
+          "type": "string",
+          "description": "Kanji radical"
+        },
+        "grade": {
+          "type": "string",
+          "description": "Kanji grade"
+        },
+        "furigana": {
+          "type": "object",
+          "description": "訓読み/音読み readings",
+          "default": {
+            "kunyomi": [],
+            "onyomi": []
+          },
+          "properties": {
+            "kunyomi": {
+              "type": "array",
+              "description": "訓読み readings of the Kanji",
+              "default": [],
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": false
+            },
+            "onyomi": {
+              "type": "array",
+              "description": "音読み readings of the Kanji",
+              "default": [],
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": false
+            }
+          },
+          "required": [
+            "kunyomi",
+            "onyomi"
+          ]
+        },
+        "translation": {
+          "type": "string",
+          "description": "English translation"
+        }
+      },
+      "required": [
+        "kanji",
+        "radical",
+        "grade",
+        "furigana",
+        "translation"
+      ]
+    }
+  },
+  "properties": {
+    "shougakkou": {
+      "description": "小学校 Kanji",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/kanji"
+      }
+    },
+    "chuugakkou": {
+      "description": "中学校 Kanji",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/kanji"
+      }
+    }
+  },
+  "required": [
+    "shougakkou",
+    "chuugakkou"
+  ],
+  "default": {
+  }
+}
