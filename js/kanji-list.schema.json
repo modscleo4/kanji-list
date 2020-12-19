@@ -96,5 +96,7 @@
     "chuugakkou"
   ],
   "default": {
+    "shougakkou": [],
+    "chuugakkou": []
   }
 }
