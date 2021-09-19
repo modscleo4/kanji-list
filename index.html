@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
     <meta name="description" content="A website with a Kanji list." />
@@ -47,7 +47,7 @@
 
     <div id="app">
         <div class="modal fade" id="kanjiModal" tabindex="-1" role="dialog" aria-labelledby="kanjiModal"
-            aria-hidden="true">
+             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -62,7 +62,7 @@
                             <p class="translation">{{ popupKanji.translation }}</p>
 
                             <div v-if="popupKanji.furigana" class="furigana-div">
-                                <table class="table">
+                                <table class="table table-borderless table-hover">
                                     <thead>
                                         <tr>
                                             <th>訓読み</th>
@@ -96,6 +96,17 @@
                         </select>
                     </span>
                 </li>
+
+                <li>
+                    <span class="description"><label for="onyomiHiragana_toggle">Onyomi in</label></span>
+                    <span class="config combo">
+                        <select id="onyomiHiragana_toggle" v-model="config.onyomiHiragana"
+                                class="custom-select custom-select-sm">
+                            <option value="true">Hiragana</option>
+                            <option value="false">Katakana</option>
+                        </select>
+                    </span>
+                </li>
             </ul>
         </nav>
 
@@ -118,7 +129,7 @@
         <section id="main" :class="{'loaded': true}">
             <div class="cards">
                 <div v-for="kanji in kanjisFiltered" class="card" :class="`l${kanji.length}`"
-                    @click="popupKanji = kanji" data-toggle="modal" data-target="#kanjiModal">
+                     @click="popupKanji = kanji" data-toggle="modal" data-target="#kanjiModal">
                     <span class="kanji">{{ kanji.kanji }}</span>
                     <span class="translation">{{ kanji.translation }}</span>
                 </div>
@@ -133,11 +144,9 @@
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.min.js"></script>
-
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.0/vue.global.prod.js"></script>
+            src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.min.js"></script>
 
     <script type="text/javascript" src="js/debug.js"></script>
     <script type="module" src="js/main.js"></script>

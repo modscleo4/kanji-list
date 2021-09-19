@@ -1,8 +1,10 @@
 'use strict';
 
+import * as Vue from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.12/vue.esm-browser.min.js';
+
 String.prototype.capitalize = function () {
     return this.charAt(0).toUpperCase() + this.slice(1);
-}
+};
 
 /**
  * Install the service worker
@@ -23,6 +25,9 @@ window.addEventListener('appinstalled', () => {
 
 let app;
 
+let kanaList = {};
+fetch ('https://modscleo4.github.io/kana-list/js/kana-list.json').then(response => response.json()).then(data => kanaList = [...data.gojuuon, ...data.youon, ...data.sokuon]);
+
 /**
  * @type {{shougakkou: {kanji: String, radical: String, grade: String, furigana: String[], translation: String}, chuugakkou: {kanji: String, radical: String, grade: String, furigana: String[], translation: String}[]}}
  */
@@ -41,6 +46,14 @@ fetch('./js/kanji-list.json').then(response => response.json()).then(data => kan
                 set theme(val) {
                     localStorage.setItem('theme', val);
                     document.querySelector('html').setAttribute('theme', val);
+                },
+
+                get onyomiHiragana() {
+                    return (localStorage.getItem('onyomiHiragana') ?? 'false') === 'true';
+                },
+
+                set onyomiHiragana(val) {
+                    localStorage.setItem('onyomiHiragana', val);
                 },
             },
             popupKanji: {
@@ -65,12 +78,26 @@ fetch('./js/kanji-list.json').then(response => response.json()).then(data => kan
 
         methods: {
             furiganas: function ({kunyomi, onyomi}) {
+                if (!this.config.onyomiHiragana) {
+                    onyomi = onyomi.map(v => this.hiragana2Katakana(v));
+                }
+
                 const f = [];
                 for (let i = 0; i < Math.max(kunyomi.length, onyomi.length); i++) {
                     f.push({kunyomi: kunyomi[i] || null, onyomi: onyomi[i] || null});
                 }
 
                 return f;
+            },
+
+            hiragana2Katakana: function(hiragana) {
+                console.log(hiragana);
+                let ret = '';
+                for (const kana of hiragana) {
+                    ret += kanaList.find(v => v.hiragana === kana)?.katakana || kana;
+                }
+
+                return ret;
             }
         },
     }).mount('#app');
