@@ -244,6 +244,7 @@ header {
 .cards .card:hover {
     cursor: pointer;
     color: var(--text-color-hover);
+    filter: drop-shadow(0 0 4px var(--drop-shadow-color));
 }
 
 .cards .card .kanji {

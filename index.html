@@ -128,7 +128,7 @@
 
         <section id="main" :class="{'loaded': true}">
             <div class="cards">
-                <div v-for="kanji in kanjisFiltered" class="card" :class="`l${kanji.length}`"
+                <div v-for="kanji in kanjisFiltered" class="card" :class="`l${kanji.kanji.length}`"
                      @click="popupKanji = kanji" data-toggle="modal" data-target="#kanjiModal">
                     <span class="kanji">{{ kanji.kanji }}</span>
                     <span class="translation">{{ kanji.translation }}</span>
