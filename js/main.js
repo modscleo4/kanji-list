@@ -91,7 +91,6 @@ fetch('./js/kanji-list.json').then(response => response.json()).then(data => kan
             },
 
             hiragana2Katakana: function(hiragana) {
-                console.log(hiragana);
                 let ret = '';
                 for (const kana of hiragana) {
                     ret += kanaList.find(v => v.hiragana === kana)?.katakana || kana;

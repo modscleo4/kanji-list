@@ -21,9 +21,9 @@
 /**
  * What files to cache
  */
-const CACHE_NAME = 'kanjiList-cache-v1';
+const CACHE_NAME = 'kanjiList-cache-v2';
 const urlsToCache = [
-    './',
+    './index.html',
     './icons/notification-icon.png',
     './css/main.css',
     './css/themes/light.css',

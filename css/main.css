@@ -87,8 +87,7 @@ a:hover {
     color: var(--text-color);
 }
 
-.table.table-hover tr:hover,
-.table.table-hover th:hover {
+.table.table-hover tbody tr:hover {
     color: var(--text-color-hover);
 }
 
@@ -297,12 +296,19 @@ header {
 
 .card-info .furigana-div {
     font-family: 'Yu Gothic', 'Noto Sans JP', sans-serif;
-    margin: 0 calc(-1rem - 2px) -2rem;
+    margin: 0 calc(-1rem - 2px) -1rem;
+    max-height: calc(5 * 56px);
+    overflow-y: auto;
+}
+
+.card-info .furigana-div table {
+    margin: 0;
 }
 
 .card-info .furigana-div thead {
     background-color: var(--btn-background-color-hover);
     filter: drop-shadow(0 0 4px var(--drop-shadow-color));
+    color: var(--btn-text-color);
 }
 
 .card-info .furigana > *:not(:first-child)::before {
