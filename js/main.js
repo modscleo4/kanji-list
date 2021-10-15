@@ -26,7 +26,7 @@ window.addEventListener('appinstalled', () => {
 let app;
 
 let kanaList = {};
-fetch ('https://modscleo4.github.io/kana-list/js/kana-list.json').then(response => response.json()).then(data => kanaList = [...data.gojuuon, ...data.youon, ...data.sokuon]);
+fetch ('/kana-list/js/kana-list.json').then(response => response.json()).then(data => kanaList = [...data.gojuuon, ...data.youon, ...data.sokuon]);
 
 /**
  * @type {{shougakkou: {kanji: String, radical: String, grade: String, furigana: String[], translation: String}, chuugakkou: {kanji: String, radical: String, grade: String, furigana: String[], translation: String}[]}}
