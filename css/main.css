@@ -314,6 +314,8 @@ header {
     background-color: var(--btn-background-color-hover);
     filter: drop-shadow(0 0 4px var(--drop-shadow-color));
     color: var(--btn-text-color);
+    position: sticky;
+    top: 0;
 }
 
 .card-info .furigana > *:not(:first-child)::before {
