@@ -226,6 +226,11 @@ header {
     font-family: 'Yu Gothic', 'Noto Sans JP', sans-serif;
 }
 
+.grades h1 {
+    border-bottom: 1px solid var(--even);
+    padding: 12px 0;
+}
+
 .cards {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));

@@ -29,7 +29,7 @@ let kanaList = {};
 fetch ('/kana-list/js/kana-list.json').then(response => response.json()).then(data => kanaList = [...data.gojuuon, ...data.youon, ...data.sokuon]);
 
 /**
- * @type {{shougakkou: {kanji: String, radical: String, grade: String, furigana: String[], translation: String}, chuugakkou: {kanji: String, radical: String, grade: String, furigana: String[], translation: String}[]}}
+ * @type {{shougakkou: {kanji: String, radical: String, grade: String, furigana: {kunyomi: String[], onyomi: String[]}, translation: String}[], chuugakkou: {kanji: String, radical: String, grade: String, furigana: {kunyomi: String[], onyomi: String[]}, translation: String}[]}}
  */
 let kanjiTable = {};
 fetch('./js/kanji-list.json').then(response => response.json()).then(data => kanjiTable = data).then(() => {
@@ -72,7 +72,15 @@ fetch('./js/kanji-list.json').then(response => response.json()).then(data => kan
             kanjisFiltered: function () {
                 const kanjis = [...kanjiTable.shougakkou, ...kanjiTable.chuugakkou];
 
-                return kanjis.filter(kanji => kanji.furigana.kunyomi.some(f => f.includes(this.search.toLowerCase())) || kanji.furigana.onyomi.some(f => f.includes(this.search.toLowerCase())));
+                return kanjis.filter(kanji => kanji.furigana.kunyomi.some(f => f.includes(this.search.toLowerCase())) || kanji.furigana.onyomi.some(f => f.includes(this.search.toLowerCase())))
+                .reduce((acc, kanji) => {
+                    if (!acc[kanji.grade]) {
+                        acc[kanji.grade] = [];
+                    }
+
+                    acc[kanji.grade].push(kanji);
+                    return acc;
+                }, {});
             },
         },
 
